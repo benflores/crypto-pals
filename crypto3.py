@@ -1,5 +1,6 @@
 # Solution to Matasano Crypto Challenge 1.3 http://cryptopals.com/sets/1/challenges/4/
 # Given a string that has been XORed with a key of a single ASCII character, find the key
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 def score_keys(cipher_text, frequency_dict, scores, sensitivity):
     i = 32 

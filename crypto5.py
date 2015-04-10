@@ -1,8 +1,8 @@
-
 # Solution to Matasano Crypto Challenge 1.5 http://cryptopals.com/sets/1/challenges/5/
 # Implement repeating key cipher - given a plaintext string, encrypt using a repeating key
 # XOR each byte of plaintext with corresponding byte of key, repeated through length of plaintext
 # Also implemented a decryption function (symmetrical encryption/decryption)
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 def encrypt_repeating_key(plaintext, key):
 	encrypted = ''

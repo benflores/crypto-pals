@@ -1,28 +1,10 @@
 # Solution to Matasano Crypto Challenge 1.6 http://cryptopals.com/sets/1/challenges/6/
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 from crypto3 import score_keys #score_keys(cipher_text, frequency_dict, scores, sensitivity)
 from crypto5 import decrypt_repeating_key
+import crypto1
 import base64
-
-def hex_raw(hex_phrase):
-    return hex_phrase.decode('hex')
-
-def raw_hex(raw_phrase):
-    return raw_phrase.encode('hex')
-
-def raw_base64(raw_phrase):
-    return base64.b64encode(raw_phrase)
-
-def hex_base64(hex_phrase):
-    raw_phrase = hex_raw(hex_phrase)
-    return raw_base64(raw_phrase)
-
-def base64_raw(base64_phrase):
-    return base64.b64decode(base64_phrase)
-
-def base64_hex(base64_phrase):
-    raw_phrase = base64.b64decode(base64_phrase)
-    return raw_hex(raw_phrase)
 
 def hamming(s1, s2):
     # calculate the hamming/edit distance between two strings (total distance between bits)
@@ -118,7 +100,7 @@ if __name__ == '__main__':
 
     cipher_text = f.read()
 
-    raw_cipher = hex_raw(cipher_text)
+    raw_cipher = crypto1.hex_raw(cipher_text)
 
     best_fit_key = get_key(raw_cipher, 2, 41, 12, 0) 
 

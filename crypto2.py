@@ -1,6 +1,7 @@
 # Solution to Matasano Crypto Challenge 1.2 http://cryptopals.com/sets/1/challenges/2/
 # Given two hex string inputs of equal length, XOR and return result
 # Bonus - result translation to ASCII
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 from crypto1 import hex_raw
 

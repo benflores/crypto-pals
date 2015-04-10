@@ -1,10 +1,10 @@
-# Solution to Matasano Crypto Challenge 1.7
+# Solution to Matasano Crypto Challenge 1.7 http://cryptopals.com/sets/1/challenges/7
 # Given a base64-encoded ciphertext encrypted with AES-128 ECB
 # encryption, and the 16-byte key, decrypt the ciphertext.
 # This solution uses the PyCrypto library to decrypt the ciphertext.
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 from Crypto.Cipher import AES
-from Crypto import Random
 import base64
 
 cipher_text_file = open('7.txt', 'r')

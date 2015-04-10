@@ -3,6 +3,7 @@
 # was encrypted using a single character XOR
 # This solution requires a sensitivity of just the highest rated key to find the correct line,
 # but requires human review to identify which line produces an English-language result.
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 from crypto3 import score_keys
 from crypto3 import possible_decryptions

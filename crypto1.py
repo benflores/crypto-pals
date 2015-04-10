@@ -1,5 +1,6 @@
 # Solution to Matasano Crypto Challenge 1.1 http://cryptopals.com/sets/1/challenges/1/
 # Given a hex string input, convert to base64 output
+# This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 import base64
 
