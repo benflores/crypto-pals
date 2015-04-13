@@ -109,4 +109,3 @@ if __name__ == '__main__':
     print decrypt_repeating_key(raw_cipher, best_fit_key)
 
     f.close()
-

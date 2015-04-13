@@ -25,5 +25,3 @@ plain_text_file.write(plain_text)
 
 cipher_text_file.close()
 plain_text_file.close()
-
-

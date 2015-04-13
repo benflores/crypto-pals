@@ -19,7 +19,6 @@ def pattern_check(block_list):
 				if block_list[x] == block_list[y]:
 					return True
 
-
 if __name__ == '__main__':
 	f = open('8.txt', 'r')
 
@@ -30,4 +29,3 @@ if __name__ == '__main__':
 			print stripped_line
 
 	f.close()
-

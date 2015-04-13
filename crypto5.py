@@ -36,4 +36,3 @@ if __name__ == '__main__':
 	print decrypt_repeating_key(encrypted_phrase.decode('hex'), key)
 	plaintext_file.close()
 	ciphertext_file.close()
-

@@ -10,10 +10,22 @@ def hex_xor(x, y):
 	b = '0x' + y
 	m = int(a, base = 0)
 	n = int(b, base = 0)
+
 	return format(m^n, 'x')
 
-result = hex_xor('1c0111001f010100061a024b53535009181c', '686974207468652062756c6c277320657965')
+def front_padding(hex_string):
+	front_padded_hex_string = ''
+	if len(hex_string) < 32:
+		padding = 32 - len(hex_string)
+		front_padded_hex_string += '0'*padding
+		front_padded_hex_string += hex_string
+		return front_padded_hex_string
+	else:
+		return hex_string
 
-#print result
 
-print hex_raw(result)
+if __name__ == '__main__':
+	result = hex_xor('1c0111001f010100061a024b53535009181c', '686974207468652062756c6c277320657965')
+	print result
+
+	check = hex_xor('756e6b79206d75736963200a04040404', '')
