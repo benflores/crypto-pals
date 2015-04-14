@@ -5,7 +5,6 @@
 
 import crypto1
 from Crypto.Cipher import AES
-from crypto7 import ecb_encrypt
 
 def ecb_detect(ciphertext, n):
 	# Operates on a hex ciphertext
@@ -20,11 +19,12 @@ def ecb_detect(ciphertext, n):
 	# Check to see if there are any identical blocks of n length
 	for x in range(len(block_list)):
 		for y in range(len(block_list)):
-			if x != y:
-				if block_list[x] == block_list[y]:
+			if block_list[x] == block_list[y]:
+				if x != y:
 					count += 1
-
+					return count
 	return count
+
 
 if __name__ == '__main__':
 	

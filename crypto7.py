@@ -14,8 +14,9 @@ def ecb_encrypt(plaintext, key):
 
 	cipher = AES.new(key, AES.MODE_ECB)
 	ciphertext = cipher.encrypt(padded_plaintext)
+	hex_ciphertext = ciphertext.encode('hex')
 
-	return ciphertext
+	return hex_ciphertext
 
 def ecb_decrypt(ciphertext, key):
 
@@ -38,3 +39,8 @@ if __name__ == '__main__':
 	key = 'YELLOW SUBMARINE'
 
 	print ecb_decrypt(raw_ciphertext, key)
+
+	f = open('/Users/benflores/text_files/computer.txt', 'r')
+
+	plaintext = f.read()
+	print ecb_encrypt(plaintext, key).encode('hex')
