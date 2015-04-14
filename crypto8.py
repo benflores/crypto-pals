@@ -5,27 +5,35 @@
 
 import crypto1
 from Crypto.Cipher import AES
+from crypto7 import ecb_encrypt
 
-def make_blocks(hex_text):
+def ecb_detect(ciphertext, n):
+	# Operates on a hex ciphertext
+	# Returns a count of the number of identical substrings, where n is the
+	# length of the substrings to check
 	block_list = []
-	for x in range(0, len(hex_text), 32):
-		block_list.append(hex_text[x:x+32])
-	return block_list
+	# Split the ciphertext into blocks of n length
+	for x in range(0, len(ciphertext), n):
+		block_list.append(ciphertext[x:x+n])
 
-def pattern_check(block_list):
+	count = 0
+	# Check to see if there are any identical blocks of n length
 	for x in range(len(block_list)):
 		for y in range(len(block_list)):
 			if x != y:
 				if block_list[x] == block_list[y]:
-					return True
+					count += 1
+
+	return count
 
 if __name__ == '__main__':
+	
 	f = open('8.txt', 'r')
 
 	for line in f:
 		stripped_line = line.strip()
-		block_list = make_blocks(stripped_line)
-		if pattern_check(block_list):
+		if ecb_detect(stripped_line, 32):
+			print ecb_detect(stripped_line, 32)
 			print stripped_line
 
 	f.close()

@@ -5,23 +5,36 @@
 # This is a work of slow-cooked eggplant brought to you by Benjamin Flores straight from 2015.
 
 from Crypto.Cipher import AES
+from crypto9 import pad # (plaintext, block_length)
 import base64
 
-cipher_text_file = open('7.txt', 'r')
-plain_text_file = open('7_decrypted.txt', 'w+')
+def ecb_encrypt(plaintext, key):
 
-encrypted_text = ''
-key = 'YELLOW SUBMARINE'
+	padded_plaintext = pad(plaintext, 16)
 
-for line in cipher_text_file:
-	encrypted_text += line.strip()
+	cipher = AES.new(key, AES.MODE_ECB)
+	ciphertext = cipher.encrypt(padded_plaintext)
+
+	return ciphertext
+
+def ecb_decrypt(ciphertext, key):
+
+	cipher = AES.new(key, AES.MODE_ECB)
+	plaintext = cipher.decrypt(ciphertext)
+
+	return plaintext
+
+if __name__ == '__main__':
+
+	f = open('7.txt', 'r')
 	
-raw_encrypted_text = base64.b64decode(encrypted_text)
+	ciphertext = ''
 
-cipher = AES.new(key, AES.MODE_ECB)
+	for line in f:
+		ciphertext += line.strip()
+		
+	raw_ciphertext = base64.b64decode(ciphertext)
 
-plain_text = cipher.decrypt(raw_encrypted_text)
-plain_text_file.write(plain_text)
+	key = 'YELLOW SUBMARINE'
 
-cipher_text_file.close()
-plain_text_file.close()
+	print ecb_decrypt(raw_ciphertext, key)

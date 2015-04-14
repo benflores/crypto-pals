@@ -101,8 +101,8 @@ if __name__ == '__main__':
 	key = 'YELLOW SUBMARINE'
 	
 	decrypted_text = cbc_decrypt(ciphertext, IV, key)
-	padded_decrypted_text = decrypted_text + '0'
-	print padded_decrypted_text
+	even_length_decrypted_text = decrypted_text + '0'
+	print even_length_decrypted_text
 
 	f.close()
 	# Comment out the above and uncomment the below to see full test
@@ -116,7 +116,4 @@ if __name__ == '__main__':
 	print decrypted_text.decode('hex')
 	f.close()
 	"""
-
-
-
 

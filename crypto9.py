@@ -2,7 +2,7 @@
 # Given a cipher text and a block length, pad the cipher text so that it is divisible
 # into equal size blocks of the given block length without remainder.
 
-def pad(cipher_text, block_length):
+def pad(plaintext, block_length):
 	
 	class BlockSizeError(Exception):
 		# Raise exception if block length <2 or block length >255
@@ -11,14 +11,11 @@ def pad(cipher_text, block_length):
 	if (block_length < 2) or (block_length > 255):
 		raise BlockSizeError('Invalid block size')
 		
-	padded_cipher_text = cipher_text
-	padding_length = block_length - (len(cipher_text) % block_length)
-	
-	#print padding_length
-	#print chr(padding_length)
+	padded_plaintext = plaintext
+	padding_length = block_length - (len(plaintext) % block_length)
 
 	if padding_length != 0:
-		padded_cipher_text += chr(padding_length)*padding_length
+		padded_plaintext += chr(padding_length)*padding_length
+
+	return padded_plaintext
 	
-	#print padded_cipher_text.encode('hex')
-	return padded_cipher_text
