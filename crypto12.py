@@ -18,38 +18,47 @@ def prepend_to_plaintext(partial_block, plaintext, insertion_point):
 
 	return modified_plaintext
 
-def match_bytes(plaintext, key, block_start, decryption_file):
+def match_bytes(plaintext, key, block_start):
 	# This function appends plaintext to a known block of text (shorter than one block), 
 	# then brute-force matches a single byte at a time
-	match = ''
+	decrypted_text = ''
+	known_block = 'A'*16
 
-	i = 15
-	while i >= 0:
-		# Each time a plaintext byte is discovered, decrease the partial_block
-		# size and replace the last byte of the partial block with the next known byte
-		partial_block = ('A'*i)
-		modified_plaintext = prepend_to_plaintext(partial_block, plaintext, block_start)
-		ciphertext = ecb_encrypt(modified_plaintext, key) 
-		current_ciphertext_block = ciphertext[:32]
+	h = 0
+	while h < len(plaintext)*2:
 
-		byte_dictionary = {}
-		# Test all possible byte values
-		for x in range(255):
-			# Build a test block out of i 'A' bytes, the known portion of current block,
-			# and a single byte value. Try for each single-byte value until a match is found
-			# with the first block of the ciphertext.
-			test_block = partial_block + match + chr(x)
-			encrypted_test_block = ecb_encrypt(test_block, key)
-			byte_dictionary[x] = encrypted_test_block[:32]
+		match = ''
+		i = 15
+		while i >= 0:
+			# Each time a plaintext byte is discovered, decrease the partial_block
+			# size - the plaintext will shift over to fill the empty positions in order to 
+			# allow for the building of the test blocks below.
+			partial_block = 'A'*16
+			modified_plaintext = prepend_to_plaintext(partial_block[:i], plaintext, 0)
+			ciphertext = ecb_encrypt(modified_plaintext, key) 
+			current_ciphertext_block = ciphertext[h:h+32]
 
-			if byte_dictionary[x] == current_ciphertext_block:
-				decryption_file.write(chr(x))
-				match += chr(x)
-				break
+			byte_dictionary = {}
+			# Test all possible byte values
+			for x in range(255):
+				# Build a test block out of i known bytes, the known portion of current block,
+				# and a single byte value. Try for each single-byte value until a match is found
+				# with the current block of the ciphertext.
+				test_block = known_block[16-i:] + match + chr(x)
+				encrypted_test_block = ecb_encrypt(test_block, key)
+				byte_dictionary[x] = encrypted_test_block[:32]
 
-		i -= 1
+				if byte_dictionary[x] == current_ciphertext_block:
+					match += chr(x)
+					break
 
-	return match
+			i -= 1
+
+		known_block = match
+		decrypted_text += known_block
+		h += 32
+
+	return decrypted_text
 
 def check_block_length(plaintext, key):
 	ciphertext_length = 0
@@ -78,10 +87,6 @@ if __name__ == '__main__':
 
 	print check_block_length(plaintext, key) # In this case, blocks begin to duplicate at 16 bytes.
 
-	f3 = open('12_decrypted.txt', 'a')
-	# Run match_bytes on each block of the plaintext
-	for x in range(0, len(plaintext), 16):
-		print match_bytes(plaintext, key, x, f3)
+	print match_bytes(plaintext, key, 0)	
 
-	f3.close()
 
