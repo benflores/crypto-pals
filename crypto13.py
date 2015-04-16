@@ -6,6 +6,11 @@ from random import randint
 from crypto7 import ecb_decrypt
 from crypto7 import ecb_encrypt
 from crypto11 import generate_aes_key
+from crypto15 import validate_padding
+
+class PaddingValueError(Exception):
+	# Exception raised for padding value errors
+	pass
 
 def parse(user_cookie):
 	# Parse user cookie by splitting at '&' characters and then splitting each
@@ -43,10 +48,8 @@ def encrypt_user_profile(user_profile_string, key):
 def decrypt_user_profile(encrypted_profile, key):
 
 	user_profile_string = ecb_decrypt(encrypted_profile.decode('hex'), key)
-	print user_profile_string
 	# Detect and remove padding
-	padding_amount = ord(user_profile_string[len(user_profile_string)-1])
-	user_profile_string = user_profile_string[:len(user_profile_string) - padding_amount]
+	user_profile_string = validate_padding(user_profile_string)
 	user_profile = parse(user_profile_string)
 	
 	return user_profile
