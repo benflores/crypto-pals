@@ -9,16 +9,16 @@ from crypto8 import ecb_detect
 from crypto11 import generate_aes_key
 import base64
 
-def prepend_to_plaintext(partial_block, plaintext, insertion_point):
+def prepend_to_plaintext(partial_block, plaintext):
 	# This function modifies plaintext by prepending a known, repeating partial block
 	# to the unknown portion of the plaintext (starting at insertion_point)
 	modified_plaintext = ''
 	modified_plaintext += partial_block
-	modified_plaintext += plaintext[insertion_point:]
+	modified_plaintext += plaintext
 
 	return modified_plaintext
 
-def match_bytes(plaintext, key, block_start):
+def match_bytes(plaintext, key):
 	# This function appends plaintext to a known block of text (shorter than one block), 
 	# then brute-force matches a single byte at a time
 	decrypted_text = ''
@@ -34,7 +34,7 @@ def match_bytes(plaintext, key, block_start):
 			# size - the plaintext will shift over to fill the empty positions in order to 
 			# allow for the building of the test blocks below.
 			partial_block = 'A'*16
-			modified_plaintext = prepend_to_plaintext(partial_block[:i], plaintext, 0)
+			modified_plaintext = prepend_to_plaintext(partial_block[:i], plaintext)
 			ciphertext = ecb_encrypt(modified_plaintext, key) 
 			current_ciphertext_block = ciphertext[h:h+32]
 
@@ -87,6 +87,6 @@ if __name__ == '__main__':
 
 	print check_block_length(plaintext, key) # In this case, blocks begin to duplicate at 16 bytes.
 
-	print match_bytes(plaintext, key, 0)	
+	print match_bytes(plaintext, key)	
 
 

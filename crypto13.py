@@ -6,7 +6,6 @@ from random import randint
 from crypto7 import ecb_decrypt
 from crypto7 import ecb_encrypt
 from crypto11 import generate_aes_key
-from crypto12 import prepend_to_plaintext # (partial_block, plaintext, insertion_point)
 
 def parse(user_cookie):
 	# Parse user cookie by splitting at '&' characters and then splitting each
@@ -57,18 +56,17 @@ if __name__ == '__main__':
 	# Generate random AES key
 	key = 'bc0a0a62756c8103a0db9020d5314201'.decode('hex')
 
-	my_profile = profile_for('xxxxxxxx@.com')
+	my_profile = profile_for('xxxxxxx@x.com')
 	secure_profile = encrypt_user_profile(my_profile, key)
 
 	blocks = [secure_profile[:32].decode('hex'), secure_profile[32:64].decode('hex'), secure_profile[64:96].decode('hex'), secure_profile[96:128].decode('hex')]
-
 
 	for block in blocks:
 		print block.encode('hex')
 		print ecb_decrypt(block, key)
 
-	answer_string = '2d892f62193cff5668eac7cbb7dfd312ee28bd592d461c50910ed99273d72df9fb2e97c187ea16e796831f073283fdc960a26a9c26547f45ace86b952cd2ea49c0452f76d4cc4c89ff7dbde6e1c69fef'
-	#print ecb_decrypt(secure_profile, key)
+	answer_string = '49c6a579576ae05f5cca00e771dc6b78ee28bd592d461c50910ed99273d72df9fb2e97c187ea16e796831f073283fdc960a26a9c26547f45ace86b952cd2ea49c0452f76d4cc4c89ff7dbde6e1c69fef'
+
 	print decrypt_user_profile(answer_string, key)
 
 """
@@ -77,6 +75,6 @@ function, as if there was actually not access. Just line up in 16 byte chunks an
 '#' marks what could not actually be seen, but simply lined up with cipher text.
 
 email=xxxxxxxx@.                 com&uid=10&role=                 admin&uid=10&rol                 email=xxxxxxxxxx
-2d892f62193cff5668eac7cbb7dfd312 ee28bd592d461c50910ed99273d72df9 fb2e97c187ea16e796831f073283fdc9 60a26a9c26547f45ace86b952cd2ea49
+49c6a579576ae05f5cca00e771dc6b78 ee28bd592d461c50910ed99273d72df9 fb2e97c187ea16e796831f073283fdc9 60a26a9c26547f45ace86b952cd2ea49
 """
 
