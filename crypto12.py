@@ -67,6 +67,7 @@ def check_block_length(plaintext, key):
 			if is_match:
 				return y, ':', is_match
 
+
 if __name__ == '__main__':
 	# Generate random AES key: 
 	# print generate_aes_key().encode('hex')
