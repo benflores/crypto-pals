@@ -89,7 +89,11 @@ def cbc_decrypt(ciphertext, iv, key):
 	plaintext_blocks.reverse()
 	plaintext = ''.join(plaintext_blocks)
 
+	if len(plaintext) % 2 != 0:
+		plaintext = '0' + plaintext
+
 	return plaintext
+
 
 if __name__ == '__main__':
 	
@@ -116,4 +120,6 @@ if __name__ == '__main__':
 	print decrypted_text.decode('hex')
 	f.close()
 	"""
+
+
 

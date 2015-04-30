@@ -14,10 +14,16 @@ def validate_padding(plaintext):
 
 	if correct_padding != actual_padding:
 		raise PaddingValueError('Invalid Padding')
-		return 1
+		return False
 	else:
+		return True
+
+def strip_padding(plaintext):
+	if validate_padding(plaintext):
+		# Detect and remove padding
+		padding_amount = ord(plaintext[len(plaintext)-1])
 		plaintext = plaintext[:len(plaintext) - padding_amount]
 		return plaintext
 
 if __name__ == '__main__':
-	print validate_padding("ICE ICE BABY\x04\x04\x04\x04")
+	print strip_padding("ICE ICE BABY\x04\x04\x04\x04")
