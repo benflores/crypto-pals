@@ -1,11 +1,13 @@
 # Solution to Matasano Crypto Challenge 3.18 http://cryptopals.com/sets/3/challenges/18/
 # Implement CTR encryption/decryption
 
-from Crypto.Cipher import AES
-from crypto2 import hex_xor #(x, y)
-from random import randint
 import crypto1
 import struct
+from Crypto.Cipher import AES
+from random import randint
+from crypto2 import hex_xor
+from crypto11 import generate_aes_key
+
 
 def ecb_no_padding(plaintext, key):
 	# Encrypt using ECB but don't add extra 16 bytes of padding
@@ -67,14 +69,40 @@ def ctr_mode(text, nonce, key):
 
 	return text_result
 
+def generate_nonce():
+
+	random_nonce = ''
+
+	for x in range(8):
+		x = chr(randint(0,255))
+		random_nonce += x
+
+	return random_nonce
+
+
 if __name__ == '__main__':
 
-	nonce = chr(0)*8
-
-	key = 'YELLOW SUBMARINE'
-	ciphertext = crypto1.base64_hex('L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ==')
+	#nonce = chr(0)*8
+	# key = 'YELLOW SUBMARINE'
+	# ciphertext = crypto1.base64_hex('L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ==')
+	# The following is a test using a randomly generated nonce and key that were stored for decryption. Generate_nonce and
+	# generate_key allow for one-time nonce use.
+	"""
+	nonce = generate_nonce()
+	print nonce.encode('hex')
+	key = generate_aes_key()
+	print key.encode('hex')
+	plaintext = 'This is a secret message. Encrypt it using CTR mode, then decrypt it the same way!'.encode('hex')
+	text_result = ctr_mode(plaintext, nonce, key)
+	print text_result
+	"""
+	"""
+	nonce = '40ac78e45de812d7'.decode('hex')
+	key = '5d037f0db5e125b524c110ea6e630356'.decode('hex')
+	ciphertext = 'd106362149ec347cc12bad507158273c941bd089af1d4875711aefba7e4716a84ef05dd8eb1bc5d8f9470acf37fbf114459d9e3a3b7f3e5319a0aaeedc5d6a6ffbbff0ffed9e9626e529bcb11f73282f958e'
 	text_result = ctr_mode(ciphertext, nonce, key)
 	print text_result.decode('hex')
+	"""
 
 
 

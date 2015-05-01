@@ -117,7 +117,7 @@ if __name__ == '__main__':
 	ciphertext_strings = []
 	ciphertext_file = open('17.txt', 'r')
 
-	chosen_ciphertext = random_ciphertext_test(ciphertext_file).strip()
+	chosen_ciphertext = random_ciphertext_test(ciphertext_file)
 
 	key = generate_aes_key()
 	IV = generate_aes_key()
