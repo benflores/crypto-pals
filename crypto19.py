@@ -6,6 +6,19 @@ from crypto2 import hex_xor
 from crypto11 import generate_aes_key
 from crypto18 import ctr_mode
 
+def ctr_texts(plaintext_file, ciphertext_file):
+
+	nonce = chr(0)*8
+	key = generate_aes_key()
+	print key.encode('hex')
+
+	for line in plaintext_file:
+		
+		hex_line = base64_hex(line)
+		ciphertext = ctr_mode(hex_line, nonce, key)
+		ciphertext_file.write(ciphertext + '\n')
+		
+
 if __name__ == '__main__':
 
 	plaintext_file = open('19.txt', 'r')
