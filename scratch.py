@@ -1,1 +1,0 @@
-print ord('5b'.decode('hex'))
