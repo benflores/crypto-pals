@@ -34,6 +34,9 @@ if __name__ == '__main__':
 	encrypted_phrase = encrypt_repeating_key(plaintext, key)
 	ciphertext_file.write(encrypted_phrase)
 	print decrypt_repeating_key(encrypted_phrase.decode('hex'), key)
+	a = 'nk is a quant'
+	k = 'not'
+	e = encrypt_repeating_key(a, k)
 	plaintext_file.close()
 	ciphertext_file.close()
 

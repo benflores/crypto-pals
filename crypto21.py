@@ -20,7 +20,6 @@ def initialize_generator(seed):
 	for i in xrange(1,624):
 		generator_state[i] = bitmask_32bits & (0x6c078965 * ((generator_state[i-1]) ^ (generator_state[i-1] >> 30)) + i)
 
-	print generator_state
 def extract_number():
 
 	global index
@@ -51,7 +50,8 @@ def generate_numbers():
 			generator_state[i] = generator_state[i] ^ 0x9908b0df
 
 if __name__ == '__main__':
-	initialize_generator(0) #3791854820
+	
+	initialize_generator(0)
 	for x in xrange(624):
 		print extract_number()
 
