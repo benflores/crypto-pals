@@ -40,20 +40,18 @@ def extract_number():
 def generate_numbers():
 	
 	bitmask_bit31 = 0x80000000
-	bitmas_bits0_30 = 0x7fffffff
+	bitmask_bits0_30 = 0x7fffffff
 
 	for i in xrange(624):
-		y = (generator_state[i] & bitmask_bit31) + ((generator_state[(i + 1) % 624]) & bitmas_bits0_30)
+		y = (generator_state[i] & bitmask_bit31) + ((generator_state[(i + 1) % 624]) & bitmask_bits0_30)
 		generator_state[i] = (generator_state[(i + 397) % 624]) ^ (y >> 1)
 
 		if (y % 2) != 0:
 			generator_state[i] = generator_state[i] ^ 0x9908b0df
 
 if __name__ == '__main__':
-	
-	initialize_generator(0)
-	for x in xrange(624):
-		print extract_number()
 
+	initialize_generator(0)
+	print extract_number()
 
 
