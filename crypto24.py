@@ -96,8 +96,6 @@ def validate_reset_token(token_text, reset_token):
 	else:
 		return False
 
-
-
 if __name__ == '__main__':
 	"""
 	# Seed RNG with some 16 bit integer then recover the seed

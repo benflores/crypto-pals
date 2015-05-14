@@ -50,7 +50,7 @@ def truncate_keystream(block_dict, keystream_dict):
 	# of keystream. Check if this is the case, and truncate the final piece of keystream if needed.
 	last_block_count = max(block_dict)
 	keystream_dict[last_block_count] = keystream_dict[last_block_count][:len(block_dict[last_block_count])]
-
+	
 	return keystream_dict
 
 def ctr_mode(text, nonce, key):
@@ -64,6 +64,8 @@ def ctr_mode(text, nonce, key):
 	j = 0
 	while j <= max(block_dict):
 		current_result = hex_xor(block_dict[j], keystream_dict[j])
+		while len(current_result) != len(block_dict[j]):
+			current_result = '0' + current_result
 		text_result += current_result
 		j += 1
 
