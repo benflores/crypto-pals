@@ -28,6 +28,7 @@ def ecb_decrypt(ciphertext, key):
 if __name__ == '__main__':
 
 	f = open('7.txt', 'r')
+	f1 = open('7_decrypted.txt', 'w+')
 	
 	ciphertext = ''
 
@@ -38,9 +39,8 @@ if __name__ == '__main__':
 
 	key = 'YELLOW SUBMARINE'
 
-	print ecb_decrypt(raw_ciphertext, key)
-
-	f = open('/Users/benflores/text_files/computer.txt', 'r')
-
-	plaintext = f.read()
-	print ecb_encrypt(plaintext, key).encode('hex')
+	plaintext =	ecb_decrypt(raw_ciphertext, key)
+	print plaintext
+	f1.write(plaintext)
+	f.close()
+	f1.close()

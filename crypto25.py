@@ -32,9 +32,12 @@ def get_ctr_keystream(ciphertext, nonce, key):
 
 if __name__ == '__main__':
 
+	f = open('7_decrypted.txt', 'r')
+	plaintext = f.read().encode('hex')
 	nonce = generate_nonce() 
 	key = generate_aes_key()
-	plaintext = 'This is a secret message. Encrypt it using CTR mode, then decrypt it the same way!'.encode('hex')
+	# plaintext = 'This is a secret message. Encrypt it using CTR mode, then decrypt it the same way!'.encode('hex')
 	ciphertext = ctr_mode(plaintext, nonce, key)
 	recovered_keystream = get_ctr_keystream(ciphertext, nonce, key)
 	print hex_xor(recovered_keystream, ciphertext).decode('hex')
+	f.close()

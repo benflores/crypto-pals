@@ -31,7 +31,7 @@ def generate_keystream(text, nonce, key):
 		# The key is used to encrypt the current nonce + block-count-padding using AES-ECB
 		keystream_dict[i] = keystream
 		i += 1
-
+	
 	return keystream_dict
 
 def generate_blocks(text):
@@ -84,9 +84,10 @@ def generate_nonce():
 
 if __name__ == '__main__':
 
-	#nonce = chr(0)*8
-	# key = 'YELLOW SUBMARINE'
-	# ciphertext = crypto1.base64_hex('L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ==')
+	nonce = chr(0)*8
+	key = 'YELLOW SUBMARINE'
+	ciphertext = crypto1.base64_hex('L77na/nrFsKvynd6HzOoG7GHTLXsTVu9qvY/2syLXzhPweyyMTJULu/6/kXX0KSvoOLSFQ==')
+	print ctr_mode(ciphertext, nonce, key).decode('hex')
 	# The following is a test using a randomly generated nonce and key that were stored for decryption. Generate_nonce and
 	# generate_key allow for one-time nonce use.
 	"""
