@@ -4,13 +4,15 @@
 
 from Crypto.Cipher import AES
 from crypto1 import base64_hex
+from crypto2 import better_hex_xor
 from crypto9 import pad
 import base64
 import crypto2
 
 def cbc_encrypt_block(first_block, next_block, key):
 	# Perform CBC encryption on single block (using previous block)
-	hex_xor_block = crypto2.hex_xor(first_block, next_block) 
+	# hex_xor_block = crypto2.hex_xor(first_block, next_block) 
+	hex_xor_block = better_hex_xor(first_block, next_block)
 	# If the first bits of first and next blocks were the same, 
 	# front-pad the result to 16 bytes with zeroes
 	padded_hex_xor_block = crypto2.front_padding(hex_xor_block) 
@@ -30,8 +32,8 @@ def cbc_decrypt_block(first_block, next_block, key):
 	cipher = AES.new(key, AES.MODE_ECB)
 	raw_xor_block = cipher.decrypt(raw_cipher_block)
 	hex_xor_block = raw_xor_block.encode('hex')
-	hex_plaintext_block = crypto2.hex_xor(hex_xor_block, next_block)
-
+	# hex_plaintext_block = crypto2.hex_xor(hex_xor_block, next_block)
+	hex_plaintext_block = better_hex_xor(hex_xor_block, next_block)
 	return hex_plaintext_block
 
 def split_into_blocks(plaintext, n_bytes):
@@ -105,8 +107,7 @@ if __name__ == '__main__':
 	key = 'YELLOW SUBMARINE'
 	
 	decrypted_text = cbc_decrypt(ciphertext, IV, key)
-	even_length_decrypted_text = decrypted_text + '0'
-	print even_length_decrypted_text
+	print decrypted_text.decode('hex')
 
 	f.close()
 	# Comment out the above and uncomment the below to see full test

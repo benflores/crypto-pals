@@ -13,6 +13,20 @@ def hex_xor(x, y):
 
 	return format(m^n, 'x')
 
+def better_hex_xor(x, y):
+	
+	a = '0x' + x
+	b = '0x' + y
+	m = int(a, base = 0)
+	n = int(b, base = 0)
+	
+	result = format(m^n, 'x')
+	
+	while len(result) != len(x):
+		result = '0' + result
+
+	return result
+
 def front_padding(hex_string):
 	front_padded_hex_string = ''
 	if len(hex_string) < 32:
