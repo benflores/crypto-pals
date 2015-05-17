@@ -1,4 +1,4 @@
-# Solution to Matasano Crypto Challenge 4.26 http://cryptopals.com/sets/4/challenges/26/
+# Solution to Matasano Crypto Challenge 4.27 http://cryptopals.com/sets/4/challenges/27/
 # CBC identical IV/Key Attack
 
 from crypto2 import better_hex_xor
